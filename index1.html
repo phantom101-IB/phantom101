@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@200;300;400;500;600;700;800&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <title>Frontend Mentor | Multi-step form</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+            font-family: 'Ubuntu', Arial, sans-serif;
+        }
+
+        :root{
+            /*Primary colors */
+            --color-1: hsl(213, 96%, 18%);
+            --color-2: hsl(243, 100%, 62%);
+            --color-3: hsl(228, 100%, 84%);
+            --color-4: hsl(206, 94%, 87%);
+            --color-5: hsl(354, 84%, 57%);
+            /* Neutral colors */
+            --color-6: hsl(231, 11%, 63%);
+            --color-7: hsl(229, 24%, 87%);
+            --color-8: hsl(217, 100%, 97%);
+            --color-9: hsl(231, 100%, 99%);
+            --color-10: hsl(0, 0%, 100%);
+
+            /* font-sizes */
+
+            --size-1: 2rem;
+            --size-2: 1rem;
+
+        }
+
+        body{
+            min-height: 100vh;
+            background: var(--color-8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-div{
+            width: 900px;
+            height: 600px;
+            background: var(--color-9);
+            border-radius: 10px;
+            padding: 10px;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: 1fr 2fr;
+        }
+
+        .side-bar{
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: url(/multi-step-form-main/assets/images/bg-sidebar-desktop.svg) no-repeat center center/cover;
+            padding: 35px 30px;
+            
+        }
+
+        .steps{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            user-select: none;
+        }
+
+        .steps .numbers{
+            font-size: 16px;
+            border: 1px solid var(--color-7);
+            padding: 5px 10px;
+            border-radius: 50px;
+            color: var(--color-10);
+            transition: all 0.5s;
+            
+        }
+
+        .numbers.nones{
+            display: none;
+        }
+
+        .short-description{
+            line-height: 20px;
+        }
+
+        .steps .short-description p{
+            font-size: 12px;
+            color: var(--color-6);
+            font-weight: 400;
+            
+        }
+
+        .steps .short-description h4{
+            font-size: 14px;
+            color: var(--color-10);
+            letter-spacing: 2px;
+            word-spacing: 3px;
+            font-weight: 700;
+        }
+
+
+        .main-form{
+            padding: 10px 60px;
+            position: relative;
+        }
+
+        .main-form .next-form{
+            position: absolute;
+            right: 12%;
+            bottom: 4%;
+            padding: 8px 12px;
+            background: var(--color-1);
+            color: var(--color-8);
+            font-size: var(--size-2);
+            font-weight: 500;
+            border: 1px solid var(--color-1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.55s;
+        }
+
+        .main-form .prev-form{
+            position: absolute;
+            left: 12%;
+            bottom: 4%;
+            padding: 8px 12px;
+            color: var(--color-6);
+            font-size: var(--size-2);
+            border: none;
+            background: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* step */
+        .step{
+            transition: all 0.5;
+        }
+        /* first step */
+
+        .main-form .first-step{
+            display: none;
+        }
+
+        
+
+        .main-form .first-step .personal-info-div{
+            margin: 30px 0px;
+        }
+
+        .main-form .first-step .personal-info-div h1{
+            color: var(--color-1);
+            font-size: var(--size-1);
+            margin-bottom: 10px;
+        }
+
+        .main-form .first-step .personal-info-div p{
+            font-size: var(--size-2);
+            color: var(--color-6);
+        }
+
+        .main-form .first-step form div{
+            margin-bottom: 15px;
+        }
+
+        .main-form .first-step .form-1 p{
+            font-size: var(--size-2);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .main-form .first-step .form-1 input{
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--color-6);
+            outline: none;
+            margin: 0px 2px;
+            padding: 0px 10px;
+            font-size: var(--size-2);
+        }
+
+        .main-form .first-step .form-1 input:valid,
+        .main-form .first-step .form-1 input:focus{
+            border: 1px solid var(--color-1);
+        }
+
+
+        /* second step */
+
+        .main-form .second-step{
+            display: none;
+        }
+
+        .main-form .second-step .plan-info-div{
+            margin: 30px 0px;
+        }
+
+        .main-form .second-step .plan-info-div h1{
+            color: var(--color-1);
+            font-size: var(--size-1);
+            margin-bottom: 10px;
+        }
+
+        .main-form .second-step .plan-info-div p{
+            font-size: var(--size-2);
+            color: var(--color-6);
+        }
+
+        .select-plan-ctrl-div{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            display: none;
+        }
+
+        /* .select-plan-ctrl-div.year-options{
+            display: none;
+        } */
+
+        .select-plan-ctrl-div .grid-item{
+            border: 1px solid var(--color-6);
+            padding: 20px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .select-plan-ctrl-div .grid-item img{
+            margin-bottom: 40px;
+        }
+        
+        .select-plan-ctrl-div .grid-item h5{
+            font-size: var(--size-2);
+            margin-bottom: 8px;
+            color: var(--color-1);
+        }
+
+        .select-plan-ctrl-div .grid-item p{
+            font-size: 14px;
+            color: var(--color-6);
+        }
+
+        .select-plan-ctrl-div .grid-item .m-free{
+            font-size: 12px;
+            margin-top: 8px;
+            color: var(--color-1);
+            font-weight: 600;
+        }
+
+        .year-months-selection{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--color-8);
+            padding: 10px;
+            margin-top: 30px;
+            border-radius: 6px;
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-6);
+        }
+
+        /* Year Toggle */
+
+        .year-container{
+            position: relative;
+            
+            left: -10%;
+            margin-bottom: 22px;
+            margin-left: 35px;
+        }
+
+        .year-container #switch-year{
+            display: none;
+        }
+
+        .year-container label{
+            width: 50px;
+            height: 25px;
+            border-radius: 25px;
+            background: var(--color-1);
+            position: absolute;
+            top: 0;
+            left:0;
+        }
+
+        .year-container label::after{
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 19px;
+            height: 19px;
+            border-radius: 19px;
+            background: var(--color-9);
+            transition: all 0.55s;
+        }
+
+        .year-container #switch-year:checked + label::after{
+            left: calc(100% - 3px);
+            transform: translateX(-100%);
+        }
+
+        /* third step  */
+        .main-form .third-step{
+            display: none;
+        }
+
+        .main-form .third-step .add-ons-info-div{
+            margin: 30px 0px;
+        }
+
+        .main-form .third-step .add-ons-info-div h1{
+            font-size: var(--size-1);
+            color: var(--color-1);
+            margin-bottom: 10px;
+        }
+
+        .main-form .third-step .add-ons-info-div p{
+            font-size: var(--size-2);
+            color: var(--color-6);
+        }
+
+        .add-ons-main-div{
+            padding-top: 15px;
+            display: none;
+        }
+
+        .add-ons-main-div.yearly-options{
+            display: none;
+        }
+
+        .add-ons-main-div .add-ons-grid-items{
+            width: 100%;
+            display: grid;
+            grid-template-columns: 25px 1fr 80px;
+            gap: 10px;
+            border: 1px solid var(--color-6);
+            border-radius: 8px;
+            align-items: center;
+            padding: 20px 10px;
+            margin-bottom: 15px;
+            transition: all 0.55s;
+
+        }
+
+        .add-ons-main-div .add-ons-grid-items:hover{
+            cursor: pointer;
+            border: 1px solid var(--color-1);
+        }
+
+        .add-ons-main-div .add-ons-grid-items input{
+            height: 20px;
+            margin-left: 10px;
+            accent-color: var(--color-2);
+        }
+
+        .add-ons-main-div .add-ons-grid-items label{
+            margin-left: 10px;
+        }
+
+        .add-ons-main-div .add-ons-grid-items label h4{
+            color: var(--color-1);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .add-ons-main-div .add-ons-grid-items label p{
+            font-size: 13px;
+            color: var(--color-6);
+        }
+
+        .add-ons-main-div .add-ons-grid-items .right-align{
+            text-align: right;
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-2);
+        }
+
+
+        /* fourth step */
+
+        .main-form .fourth-step{
+            display: none;
+        }
+
+        .main-form .fourth-step .summary-info-div{
+            margin: 30px 0px;
+        }
+
+        .main-form .fourth-step .summary-info-div h1{
+            font-size: var(--size-1);
+            color: var(--color-1);
+            margin-bottom: 10px;
+        }
+
+        .main-form .fourth-step .summary-info-div p{
+            font-size: var(--size-2);
+            color: var(--color-6);
+        }
+
+        .main-form .fourth-step .summary-info-div-co{
+            padding: 20px;
+            background: var(--color-8);
+        }
+
+        .main-form .fourth-step .summary-info-div-co .second-step-summary{
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--color-7);
+        }
+
+        .main-form .fourth-step .summary-info-div-co p{
+            font-size: var(--size-2);
+            color: var(--color-6);
+        }
+
+        .main-form .fourth-step .summary-info-div-co .second-step-summary{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-form .fourth-step .summary-info-div-co .second-step-summary h4{
+            color: var(--color-1);
+        }
+
+        .main-form .fourth-step .summary-info-div-co .second-step-summary a{
+            text-decoration: underline;
+            line-height: 30px;
+            cursor: pointer;
+            transition: all 0.55s;
+        }
+
+        .summary-info-div-co .second-step-summary a:hover{
+            color: var(--color-2);
+        }
+
+        .main-form .fourth-step .summary-info-div-co .second-step-summary .right-align{
+            color: var(--color-1);
+            font-weight: 500;
+        }
+
+        .main-form .fourth-step .summary-info-div-co .third-step-summary{
+            padding-top: 15px;
+        }
+
+        .main-form .fourth-step .summary-info-div-co .third-step-summary label{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 5px 0px;
+        }
+
+        .main-form .fourth-step .summary-info-div-co .third-step-summary label p:nth-child(2){
+            color: var(--color-6);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .main-form .fourth-step .totalT{
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 20px;
+            margin-top: 20px;
+        }
+
+        .main-form .fourth-step .totalT h4{
+            color: var(--color-2);
+        }
+
+        .main-form .fourth-step .totalT p{
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-6);
+        }
+
+
+        /* firth step */
+
+        .firth-step{
+            display: grid;
+            height: 100%;
+            justify-content: center;
+            place-items: center;
+            display: none;
+        }
+
+        .firth-step .thanks-info-div{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* margin-top: -30px; */
+            text-align: center;
+        }
+
+        .firth-step .thanks-info-div img{
+            margin-bottom: 40px;
+        }
+
+        .firth-step .thanks-info-div h2{
+            margin-bottom: 15px;
+            color: var(--color-1);
+        }
+
+        .firth-step .thanks-info-div p{
+            line-height: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-6);
+        }
+
+        /* decoys */
+        .step.sixth-step{
+            display: none;
+        }
+
+        /* Pseudo classes */
+        .monthly{
+            transition: all 0.55s;
+        }
+
+        .yearly{
+            transition: all 0.55s;
+        }
+
+        .numbers.change-bg{
+            background: var(--color-8);
+            color: #000;
+            font-weight: 600;
+
+        }
+
+        .next-form.con-color{
+            background: var(--color-2);
+            border: 1px solid var(--color-2);
+        }
+
+        .step.main-shown{
+            display: grid;
+        }
+
+        .monthly.colors{
+            color: var(--color-1);
+        }
+
+        .yearly.colors{
+            color: var(--color-1);
+        }
+
+        /* months show div */
+        .months-options-2.show-this{
+            display: grid;
+        }
+
+        .months-options.show-this{
+            display: grid;
+        }
+
+        /* year show-divs */
+        .select-plan-ctrl-div.year-options.show-this{
+            display: grid;
+        }
+
+        .add-ons-main-div.yearly-options.show-this{
+            display: grid;
+        }
+
+        /* grid border change */
+        .grid-item.change-border{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        .grid-item-1.change-border-1{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        /* checkboxes */
+
+        .add-ons-grid-item1.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        .add-ons-grid-item2.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        .add-ons-grid-item3.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        .add-ons-grid-item4.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        .add-ons-grid-item5.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+        .add-ons-grid-item6.checked{
+            border: 1px solid var(--color-1);
+            background: var(--color-8);
+        }
+
+        /* next and back display */
+
+        .prev-form.back-removed{
+            display: none;
+        }
+
+        .next-form.next-removed{
+            display: none;
+        }
+        .next-form:hover{
+            opacity: 0.8;
+        }
+        
+        .warning-field-1, .warning-field-2, .warning-field-3{
+            color: red;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .gm{
+            height: 0;
+            transition: all 0.55s;
+            overflow: hidden;
+        
+        }
+
+        .gm.activate{
+            height: 20px;
+            transition: all 0.55s;
+        
+        }
+
+        /* media queries */
+
+        @media (max-width: 590px){
+            body{
+                display: block;
+            }
+
+            .main-div{
+                grid-template-columns: 1fr;
+                position: relative;
+                border-radius: 0;
+                height: 100%;
+                width: 100%;
+                background: var(--color-7);
+                height: 90vh;
+            }
+
+            .side-bar{
+                display: flex;
+                height: 200px;
+                justify-content: center;
+                background: url(/multi-step-form-main/assets/images/bg-sidebar-mobile.svg) no-repeat center center/cover;
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 0;
+                border-radius: 0;
+            }
+
+            .media{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 250px;
+                position: absolute;
+            }
+
+            .media .numbers{
+                width: 30px;
+            }
+
+            .media .steps{
+                display: flex;
+                justify-content: center;
+            }
+            .media .steps:nth-child(5){
+                display: none;
+            }
+
+            .side-bar .short-description{
+                display: none;
+            }
+
+            .main-form{
+                position: absolute;
+                border-radius: 10px;
+                background: var(--color-9);
+                max-width: 400px;
+                top: 20%;
+                right: 10%;
+                left: 15%;
+            }
+
+            .main-form .next-form{
+                position: fixed;
+                bottom: 3%;
+            }
+
+            .main-form .prev-form{
+                position: fixed;
+                bottom: 3%;
+            }
+
+            .main-form .fourth-step .totalT{
+                margin-bottom: 20px;
+            }
+
+            .switch-year{
+                margin-left: 30px;
+            }
+
+            .select-plan-ctrl-div{
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-item{
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                height: 100px;
+            }
+
+        }
+
+        
+
+
+    </style>
+</head>
+<body>
+    <div class="main-div">
+        <div class="side-bar">
+            <div class="media">
+                <div class="steps">
+                    <div class="numbers change-bg">1</div>
+                    <div class="short-description">
+                        <p>Step 1</p>
+                        <h4>Your info</h4>
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="numbers">2</div>
+                    <div class="short-description">
+                        <p>Step 2</p>
+                        <h4>Select Plan</h4>
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="numbers">3</div>
+                    <div class="short-description">
+                        <p>Step 3</p>
+                        <h4>Add-ons</h4>
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="numbers">4</div>
+                    <div class="short-description">
+                        <p>Step 4</p>
+                        <h4>Summary</h4>
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="numbers nones"></div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="main-form">
+            <!-- First step -->
+
+            <div class="step first-step main-shown">
+                <div class="personal-info-div">
+                    <h1>Personal info</h1>
+                    <p>Please provide your name, email address, and phone number.</p>
+                </div>
+
+                <form>
+                    <div class="form-1 name-input-div">
+                        <p>Name</p>
+                        <input type="text" class="required-1" placeholder="e.g. Stephen King" required>
+                        <p class="gm warning-field-1">field is required</p>
+                    </div>
+                    <div class="form-1 email-input-div">
+                        <p>Email Address</p>
+                        <input type="email" class="required-2" placeholder="e.g.stephenking@lorem.com" required>
+                        <p class="gm warning-field-2">field is required</p>
+                    </div>
+                    <div class="form-1 tel-input-div">
+                        <p>Phone Number</p>
+                        <input type="tel" class="required-3" placeholder="e.g. +234 567 890" required>
+                        <p class="gm warning-field-3">field is required</p>    
+                    </div>
+
+                   
+                </form>
+               
+            </div>
+            <!-- second Step -->
+
+            <div class="step second-step">
+                <div class="plan-info-div">
+                    <h1>Select your plan</h1>
+                    <p>You have the option of monthly or yearly billing.</p>
+                </div>
+
+                <div class="select-plan-main-div">
+                    <!-- Months Options -->
+                    <div class="select-plan-ctrl-div months-options show-this">
+                        <div class="grid-item grid-item-2 change-border">
+                            <img src="/multi-step-form-main/assets/images/icon-arcade.svg">
+                            <div>
+                                <h5>Arcade</h5>
+                                <p>$9/mo</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-item grid-item-2">
+                            <img src="/multi-step-form-main/assets/images/icon-advanced.svg">
+                            <div>
+                                <h5>Advanced</h5>
+                                <p>$12/mo</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-item grid-item-2">
+                            <img src="/multi-step-form-main/assets/images/icon-pro.svg">
+                            <div>
+                                <h5>Pro</h5>
+                                <p>$15/mo</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Yearly Options -->
+
+                    <div class="select-plan-ctrl-div year-options">
+                        <div class="grid-item grid-item-1 change-border-1">
+                            <img src="/multi-step-form-main/assets/images/icon-arcade.svg">
+                            <div>
+                                <h5>Arcade</h5>
+                                <p>$90/yr</p>
+                                <p class="m-free">2 months free</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-item grid-item-1">
+                            <img src="/multi-step-form-main/assets/images/icon-advanced.svg">
+                            <div>
+                                <h5>Advanced</h5>
+                                <p>$120/yr</p>
+                                <p class="m-free">2 months free</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-item grid-item-1">
+                            <img src="/multi-step-form-main/assets/images/icon-pro.svg">
+                            <div>
+                                <h5>Pro</h5>
+                                <p>$150/yr</p>
+                                <p class="m-free">2 months free</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Selection Div -->
+
+                    <div class="year-months-selection">
+                        <p class="monthly colors">Monthly</p>
+                        <div class="year-container">
+                            <input type="checkbox" id="switch-year">
+                            <label for="switch-year"></label>
+                        </div>
+                        <p class="yearly">Yearly</p>
+                    </div>
+
+                </div>
+                
+
+                   
+               
+               
+            </div>
+
+            <!-- Third Step -->
+
+            <div class="step third-step">
+                <div class="add-ons-info-div">
+                    <h1>Pick add-ons</h1>
+                    <p>Add-ons help enhance your gaming experience.</p>
+                </div>
+                
+                <div class="add-ons-general-div">
+
+                    <!-- monthly options -->
+
+                    <div class="add-ons-main-div months-options-2 show-this">
+                        <div class="add-ons-grid-items add-ons-grid-item1">
+                            <input type="checkbox" name="add-check" id="first-checkbox" >
+                            <label for="add-check">
+                                <h4>Online services</h4>
+                                <p>Access to multiplayer games</p>
+                            </label>
+                            <p class="right-align">+$1/mo</p>
+                        </div>
+
+
+                        <div class="add-ons-grid-items add-ons-grid-item2">
+                            <input type="checkbox" name="add-check" id="second-checkbox">
+                            <label for="add-check">
+                                <h4>Larger storage</h4>
+                                <p>Extra 1TB of cloud save</p>
+                            </label>
+                            <p class="right-align">+$2/mo</p>
+                        </div>
+
+
+                        <div class="add-ons-grid-items add-ons-grid-item3">
+                            <input type="checkbox" name="add-check" id="third-checkbox">
+                            <label for="add-check">
+                                <h4>Customizable profile</h4>
+                                <p>Custome theme on your profile</p>
+                            </label>
+                            <p class="right-align">+$2/mo</p>
+                        </div>
+
+                    </div>
+
+                    <!-- yearly option -->
+
+                    <div class="add-ons-main-div yearly-options">
+                        <div class="add-ons-grid-items add-ons-grid-item4">
+                            <input type="checkbox" name="add-check" id="fourth-checkbox">
+                            <label for="add-check">
+                                <h4>Online services</h4>
+                                <p>Access to multiplayer games</p>
+                            </label>
+                            <p class="right-align">+$10/yr</p>
+                        </div>
+
+
+                        <div class="add-ons-grid-items add-ons-grid-item5" >
+                            <input type="checkbox" name="add-check" id="firth-checkbox">
+                            <label for="add-check">
+                                <h4>Larger storage</h4>
+                                <p>Extra 1TB of cloud save</p>
+                            </label>
+                            <p class="right-align">+$20/yr</p>
+                        </div>
+
+
+                        <div class="add-ons-grid-items add-ons-grid-item6" >
+                            <input type="checkbox" name="add-check" id="sixth-checkbox">
+                            <label for="add-check">
+                                <h4>Customizable profile</h4>
+                                <p>Custome theme on your profile</p>
+                            </label>
+                            <p class="right-align">+$20/yr</p>
+                        </div>
+
+                    </div>
+               
+                </div>
+            </div>
+
+            <!-- fourth step -->
+
+            <div class="step fourth-step">
+                <div class="summary-info-div">
+                    <h1>Finishing up</h1>
+                    <p>Double-check everything looks OK before comfirming</p>
+                </div>
+
+                <div class="summary-info-div-co">
+                    <div class="second-step-summary">
+                        <label for="add-check">
+                            <h4>Arcade (Monthly)</h4>
+                            <p><a>change</a></p>
+                        </label>
+                        <p class="right-align">$9/mo</p>
+                    </div>
+                    <div class="third-step-summary">
+                        <label for="add-check">
+                            <p>Online services</p>
+                            <p>+$1/mo</p>
+                        </label>
+
+                        <label for="add-check">
+                            <p>Larger storage</p>
+                            <p>+$2/mo</p>
+                        </label>
+                    </div>
+                </div>
+
+                <label class="totalT">
+                    <p>Total (per month)</p>
+                    <h4>+$12/mo</h4>
+                </label>
+               
+            </div>
+
+            <!-- five steps -->
+
+            <div class="step firth-step">
+                
+                <div class="thanks-info-div">
+                    <img src="/multi-step-form-main/assets/images/icon-thank-you.svg">
+                
+                    <h2>Thank you</h2>
+                    <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com</p>
+
+                </div>
+               
+            </div>
+            <div class="step sixth-step">
+               
+            </div>
+
+            <button type="submit" class="next-form">Next Step</button>
+            <button type="submit" class="prev-form back-removed">Go Back</button>
+        </div>
+
+
+
+
+
+    </div>
+
+    <script>
+        // variables
+        const allSub = document.querySelectorAll(".step")
+        const changeBcg = document.querySelectorAll(".numbers")
+        
+        // length measures
+        const mainForm = document.querySelector(".main-form")
+        const switchYear = document.querySelector("#switch-year")
+
+        // months-year color variable
+        const monthsP = document.querySelector(".monthly")
+        const yearP = document.querySelector(".yearly")
+
+        // Year - Months Div variable
+        const changeYear = document.querySelector(".year-options")
+        const change3Year = document.querySelector(".yearly-options")
+        const changeMonth = document.querySelector(".months-options")
+        const change3Month = document.querySelector(".months-options-2")
+
+        // next & prev variables
+        const nextForm = document.querySelector(".next-form")
+        const prevForm = document.querySelector(".prev-form")
+
+        // Grid items variables
+        const gridItems = document.querySelectorAll(".grid-item-2")
+        const gridItems1 = document.querySelectorAll(".grid-item-1")
+
+        // checkboxes variable
+        const check1 = document.getElementById("first-checkbox")
+        const checkG1 = document.querySelector(".add-ons-grid-item1")
+
+        const check2 = document.getElementById("second-checkbox")
+        const checkG2 = document.querySelector(".add-ons-grid-item2")
+
+        const check3 = document.getElementById("third-checkbox")
+        const checkG3 = document.querySelector(".add-ons-grid-item3")
+
+        const check4 = document.getElementById("fourth-checkbox")
+        const checkG4 = document.querySelector(".add-ons-grid-item4")
+
+        const check5 = document.getElementById("firth-checkbox")
+        const checkG5 = document.querySelector(".add-ons-grid-item5")
+
+        const check6 = document.getElementById("sixth-checkbox")
+        const checkG6 = document.querySelector(".add-ons-grid-item6")
+
+        // required inputs
+
+        const fillName = document.querySelector(".required-1")
+        const fillEmail = document.querySelector(".required-2")
+        const fillNum = document.querySelector(".required-3")
+
+        const nameWarn = document.querySelector(".warning-field-1")
+        const emailWarn = document.querySelector(".warning-field-2")
+        const telWarn = document.querySelector(".warning-field-3")
+
+
+        // functions
+        i= 0
+        q= 0
+
+        nextForm.addEventListener("click", function(){
+            // action
+            if(fillName.value === ""){
+                nameWarn.classList.add("activate")
+                allSub = 0
+            } else{
+                nameWarn.classList.remove("activate")
+            }
+
+            if(fillEmail.value === ""){
+                emailWarn.classList.add("activate")
+                allSub = 0
+            } else{
+                emailWarn.classList.remove("activate")
+            }
+            
+            if(fillNum.value === ""){
+                telWarn.classList.add("activate")
+                allSub = 0
+            } else{
+                telWarn.classList.remove("activate")
+            }
+            
+            
+        
+            // main functions
+
+            if (i >= allSub.length - 2){
+                i = 0
+                
+            }
+            else{
+                i++
+                prevForm.classList.remove("back-removed")
+            }
+
+            // buttons removal
+            if(i === 4){
+                nextForm.classList.add("next-removed")
+                prevForm.classList.add("back-removed")
+            }
+
+            if(i === 3){
+                nextForm.classList.add("con-color")
+                nextForm.innerHTML = "confirm"
+            }
+            
+
+            // console.log(i)
+            
+            changeBcg.forEach(function(e){
+                if(e.classList.contains("change-bg")){
+                    e.classList.remove("change-bg")
+                }
+                else{
+                    changeBcg[i].classList.add("change-bg")
+                }
+            })
+
+            if(q >= allSub.length - 2){
+                q = 0
+                console.log(q)
+            }
+            else{
+                q++
+                console.log(q)
+            }
+
+            allSub.forEach(function(e){
+                if(e.classList.contains("main-shown")){
+                    e.classList.remove("main-shown")
+                }
+                else{
+                    allSub[q].classList.add("main-shown")
+                }
+            })
+
+            
+
+        })
+
+
+        prevForm.addEventListener("click", function(){
+            
+            if (i === 0){
+                i = 0
+                
+            }
+            else{
+                i--
+                
+            }
+
+            nextForm.classList.remove("con-color")
+
+
+            if(i < 3){
+                nextForm.innerHTML = "Next step"
+            }
+
+            // console.log(i)
+            
+            changeBcg.forEach(function(e){
+                if(e.classList.contains("change-bg")){
+                    e.classList.remove("change-bg")
+                }
+                else{
+                    changeBcg[i].classList.add("change-bg")
+                }
+            })
+
+            if(q === 0){
+                q = 0
+                console.log(q)
+            }
+            else{
+                q--
+                console.log(q)
+            }
+
+            if(q == 0){
+                prevForm.classList.add("back-removed")
+            }
+
+            allSub.forEach(function(e){
+                if(e.classList.contains("main-shown")){
+                    e.classList.remove("main-shown")
+                }
+                else{
+                    allSub[q].classList.add("main-shown")
+                }
+            })
+
+        })
+
+
+        switchYear.addEventListener("click", function(){
+            // color changes
+            if(monthsP.classList.contains("colors")){
+                monthsP.classList.remove("colors")
+                
+            }
+            else{   
+                monthsP.classList.add("colors")
+                
+            }
+
+            if(yearP.classList.contains("colors")){
+                yearP.classList.remove("colors")
+                
+            }
+            else{   
+                yearP.classList.add("colors")
+                
+            }
+            // div changes
+            if(changeMonth.classList.contains("show-this")){
+                changeMonth.classList.remove("show-this")
+                
+            }
+            else{
+                changeMonth.classList.add("show-this")
+                
+            }
+
+            if(changeYear.classList.contains("show-this")){
+                changeYear.classList.remove("show-this")
+                
+            }
+            else{
+                changeYear.classList.add("show-this")
+                
+            }
+            // third div functions
+
+            if(change3Month.classList.contains("show-this")){
+                change3Month.classList.remove("show-this")
+                
+            }
+            else{
+                change3Month.classList.add("show-this")
+                
+            }
+
+            if(change3Year.classList.contains("show-this")){
+                change3Year.classList.remove("show-this")
+                console.log("Removed")
+            }
+            else{
+                change3Year.classList.add("show-this")
+                console.log("Added")
+            }
+            
+
+        })
+
+        // monthly grid item
+        function addBorder(e){
+            removeBorder()
+
+            this.classList.add("change-border")
+        }
+
+        function removeBorder(){
+            gridItems.forEach(item => item.classList.remove("change-border"))
+        }
+
+        gridItems.forEach(item => item.addEventListener("click", addBorder))
+        
+        //year-grid item 
+        
+        function addBorder1(e){
+            removeBorder1()
+
+            this.classList.add("change-border-1")
+        }
+
+        function removeBorder1(){
+            gridItems1.forEach(item => item.classList.remove("change-border-1"))
+        }
+
+        gridItems1.forEach(item => item.addEventListener("click", addBorder1))
+
+        // checkbox function
+        check1.addEventListener("click", function(){
+            checkG1.classList.toggle("checked")
+        })
+
+        check2.addEventListener("click", function(){
+            checkG2.classList.toggle("checked")
+        })
+
+        check3.addEventListener("click", function(){
+            checkG3.classList.toggle("checked")
+        })
+
+        check4.addEventListener("click", function(){
+            checkG4.classList.toggle("checked")
+        })
+
+        check5.addEventListener("click", function(){
+            checkG5.classList.toggle("checked")
+        })
+
+        check6.addEventListener("click", function(){
+            checkG6.classList.toggle("checked")
+        })
+    </script>
+</body>
+</html>
